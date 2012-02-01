@@ -1,0 +1,137 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Strict//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>KeePass for BlackBerry v2 Options</title>
+<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+<table>
+<tr><th>Options</th></tr>
+<tr><th class="l2">User Interface</th></tr>
+<tr><td>
+<dl>
+	<dt>Base Font:</dt>
+	<dd>Sets the font used for all screens and menus.</dd>
+	<hr>
+	<dt>Show the Userid in the Tree:</dt>
+	<dd>Shows the userid as part of the title in the tree screen.</dd>
+	<hr>
+	<dt>Hide Title Bar:</dt>
+	<dd>Hides the title bar at the top of all screens.</dd>
+	<hr>
+	<dt>Hide Icons:</dt>
+	<dd>Hides the icons in the tree view.</dd>
+	<hr>
+	<dt>Hide Entry URL, Hide Entry Note Title:</dt>
+	<dd>Saves space on the entry screen.</dd>
+	<hr>
+	<dt>Prompt on Delete:</dt>
+	<dd>Prompts before deleting entries or groups.</dd>
+	<hr>
+	<dt>Search Mode:</dt>
+	<dt class="l2">Title starts with:</dt>
+	<dd>Finds entries with titles starting with the search criteria.</dd>
+	<dt class="l2">Any field contains:</dt>
+	<dd>Finds entries where the search criteria is contained in any of the entry's fields.
+	</dd>
+	<hr>
+	<dt>Find As You Type:</dt>
+	<dd>Allows you to search by just typing character in the tree
+	screen. Otherwise you have to use the "Find" menu item.</dd>
+	<hr>
+	<dt>Expand Groups on Startup:</dt>
+	<dd>Automatically expands all groups in the tree when KeePassBB is
+	started.</dd>
+	<hr>
+	<dt>Auto Confirm Group/Entry Changes:</dt>
+	<dd>Automatically confirms group/entry changes.</dd>
+</dl>
+</td></tr>
+<tr><th class="l2">Security</th></tr>
+<tr><td>
+<dl>
+	<dt>Inactivity Timeout:</dt>
+	<dd>If no activity is detected in this interval, KeePassBB will be
+	closed.</dd>
+	<hr>
+	<dt>Escape Hides KeePassBB:</dt>
+	<dd>If you press the escape key at the main KeePassBB screen, the
+	app will go into the background instead of closing. The database
+	remains open until the Inactivity Timeout expires. Reopening KeePassBB
+	before the timeout will bring you back to an open database.</dd>
+	<hr>
+	<dt>Close When Holstered:</dt>
+	<dd>Closes KeePassBB when the device is placed in a holster with a
+	sleep magnet.</dd>
+	<hr>
+	<dt>Restricted Mode:</dt>
+	<dd>Allows access to only a few menu options unless a database is
+	open. Options is not available in restricted mode.</dd>
+	<hr>
+	<dt>Remember Last Used Directories:</dt>
+	<dd>Will remember last used directories when opening or saving
+	database or key files.</dd>
+</dl>
+</td></tr>
+<tr><th class="l2">Database</th></tr>
+<tr><td>
+<dl>
+	<dt>Read Only:</dt>
+	<dd>Just that. No database changes will be allowed.</dd>
+	<hr>
+	<dt>Mark DB Modified on Last Access Changes:</dt>
+	<dd>If set, viewing a group or entry will cause the database to
+	require saving.</dd>
+	<hr>
+	<dt>Auto save every change:</dt>
+	<dd>Every change to an entry or group will cause an immediate database save.
+	If you have a large database, this might not be a good idea but it is the safest option.</dd>
+	<hr>
+	<dt>Auto save on app close:</dt>
+	<dd>When you close the application, the database will automatically be saved.
+	</dd>
+	<hr>
+	<dt>Auto save on app hide:</dt>
+	<dd>When you hide the application, the database will automatically be saved.
+	</dd>
+	<hr>
+	<dt>Reload database on Start:</dt>
+	<dd>When you start KeePassBB, your database will automatically be loaded.</dd>
+	<hr>
+	
+	<dt>Use External File Mode:</dt>
+	<dd>See the <a href="faq.html">FAQ</a> for more info.</dd>
+	<hr>
+	
+	<dt>Specify a database file for Reload Database on Start:</dt>
+	<dd>External Mode Only: Specify the database you wish to auto open. You also can specify an HTTP URL.
+	</dd>
+	<hr>
+
+	<dt>Disable MDS proxy for HTTP requests...:</dt>
+	<dd>When you open a URL and you're connected to a BlackBerry Enterprise server,
+	the default is to route your request through the BES/MDS.  If you experience 
+	problems opening URLs, you can force direct TCP connections by disableing the MDS proxy.
+	</dd>
+
+</dl>
+</td></tr>
+<tr><th class="l2">KeyFile</th></tr>
+<tr><td>
+<dl>
+	<dt>Hide KeyFile on Password Dialog:</dt>
+	<dd>Hides the keyfile information on the password dialog box.</dd>
+	<hr>
+	<dt>Load KeyFile on Startup:</dt>
+	<dd>Automatically loads the keyfile specified below on startup.</dd>
+	<fieldset><legend>**Note**</legend>Using both keyfile
+	options gives you the ability to open a keyfile protected database
+	without letting anyone else know that a keyfile is even needed.</fieldset>
+</dl>
+
+
+</td></tr></table>
+
+</body>
+</html>

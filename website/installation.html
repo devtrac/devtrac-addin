@@ -1,0 +1,60 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Strict//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>KeePass for BlackBerry Installation</title>
+<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+<table>
+	<tr>
+		<th>KeePass for BlackBerry v2 Prerequisites</th>
+	</tr>
+	<tr>
+		<td>
+		Your device MUST be running BlackBerry OS 4.2.2 or greater.
+		The application simply will not run on earlier versions of the OS.
+		<p>
+		If you are using KeePass on the desktop, you must be running version
+		2.15 or greater.
+	</td>
+	</tr>
+	<tr>
+		<th>KeePass for BlackBerry v2 Installation</th>
+	</tr>
+	<tr>
+		<td>Your device MUST be running BlackBerry OS 4.2.2 or greater.
+		The application simply will not run on earlier versions of the OS.
+		<p>For OTA installation, visit the OTA download link on the home
+		page.
+		<p>For desktop installation and installation of the Desktop
+		Manager Synchronization Add-In, download the .msi file and run it from
+		the command line or directly from Windows Explorer. It will install
+		the Desktop Manager Synchronization Add-In and extract the cod and alx
+		files you'll need to install on the device. Use the Desktop Manager
+		Application Loader to get the software into your device. If the
+		installation fails, make sure Vista User Account Control is turned off
+		and that you're running the install as an administrator. You can turn
+		UAC back on again after the install.
+		<p>
+		<p>When the installation is completed, open the Desktop Manager
+		Synchronization tool and go to the Configuration tab. Press the
+		Configure Add-Ins button and you should see the Add-In listed. Check
+		the box and press the "Configure" button to set the location of your
+		KeePass database file.
+		<p>If you don't see the Add-In in the Desktop Manager, perform the
+		following steps...<br>
+		Open a Command Window and navigate to the installation directory,
+		usually "c:\Program Files\KeePass for BlackBerry". Now run the
+		following command: "regasm /codebase KeePassBB2AddIn.dll". Now restart
+		the Desktop Manager.
+		<p>The Add-In requires that the Microsoft .NET Runtime v2.0 be
+		installed on your desktop. In the unlikely event that you do not
+		already have the proper runtime, the installer will download and
+		install it for you.
+		</td>
+	</tr>
+</table>
+
+</body>
+</html>

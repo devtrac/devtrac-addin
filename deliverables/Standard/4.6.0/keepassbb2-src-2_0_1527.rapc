@@ -1,0 +1,10 @@
+MIDlet-Name: keepassbb2-src-2.0.1527
+MIDlet-Version: 1.0.0
+MIDlet-Vendor: BlackBerry Developer
+MIDlet-Jar-URL: keepassbb2-src-2.0.1527.jar
+MIDlet-Jar-Size: 0
+MicroEdition-Profile: MIDP-2.0
+MicroEdition-Configuration: CLDC-1.1
+MIDlet-1: ,res/img/icon.png,
+RIM-MIDlet-Flags-1: 0
+

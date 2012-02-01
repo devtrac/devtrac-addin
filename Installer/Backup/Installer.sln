@@ -1,0 +1,19 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Installer", "Installer.vdproj", "{C28C27F5-934B-4750-A4CC-3F6D22867A93}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Default = Debug|Default
+		Release|Default = Release|Default
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C28C27F5-934B-4750-A4CC-3F6D22867A93}.Debug|Default.ActiveCfg = Debug
+		{C28C27F5-934B-4750-A4CC-3F6D22867A93}.Release|Default.ActiveCfg = Release
+		{C28C27F5-934B-4750-A4CC-3F6D22867A93}.Release|Default.Build.0 = Release
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,198 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Strict//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>KeePass for BlackBerry v2 Overview</title>
+<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+<table>
+	<tr>
+		<th>Overview</th>
+	</tr>
+	<tr>
+		<td>KeePass for BlackBerry v2 is a companion to the popular
+		KeePass Password Safe v2.</td>
+	</tr>
+	<tr>
+		<th>Features</th>
+	</tr>
+	<tr><td>
+	<ul>
+	<li>Add,Edit,Delete entries and groups.
+	<li>Synchronize with KeePass on the desktop.
+	<li>AES Encryption.
+	<li>KeyFile Support.
+	<li>Store database on the file system or internal memory.
+	<li>Entry search.
+	<li>Backup and Restore.
+	</ul>
+	</td></tr>
+	
+
+	<tr>
+		<th>Concepts</th>
+	</tr>
+
+	<tr>
+		<th class="l2">Encryption</th>
+	</tr>
+	<tr>
+		<td>KeePassBB uses the AES encryption algorithm just like the
+		desktop version. The encryption key itself is pre-processed by cyclicly 
+		re-encrypting and hashing it.  The number of key encryption rounds can greatly
+		affect the speed at which the decryption process happens. 600,000
+		rounds on a PC will be hardly noticable but on the device it will be
+		unbearably slow. The default of 6000 is reasonable.</td>
+	</tr>
+
+
+	<tr>
+		<th class="l2">Keyfiles</th>
+	</tr>
+	<tr>
+		<td>The desktop version of KeePass has the concept of keyfiles.
+		These are files which contain a key required to decrypt your database.
+		Presumably you keep the keyfile on a USB stick that you can remove and
+		physically secure. Some users rely solely on the keyfile while others
+		use it with a password. When used in conjunction with a password, it
+		means that an attacker can't decrypt your database even if he has the
+		database file and your password.
+		<p>KeePassBB also can use keyfiles but you must be VERY careful.
+		If you secure your database with ONLY a keyfile, anyone who picks up
+		your BlackBerry will have access to your database. Always use a
+		password in conjunction with keyfiles. If you must use keyfiles alone,
+		make sure your BlackBerry has a password and the timeout is set for
+		the shortest timeout possible.
+		<p>You can set a default keyfile in Options. You can also set an
+		option to hide the keyfile on the password dialog.
+		</td>
+	</tr>
+
+	<tr>
+		<th class="l2">Database</th>
+	</tr>
+	<tr>
+		<td>Early versions of KeePassBB used a single database stored in
+		the device's Persistent Store. This made it difficult for users who
+		needed to swap between multiple datbases. From version 1.2 forward,
+		databases are stored on the device's filesystem just like any other
+		file. This allows you to open and save any number of databases without
+		having to import or export. The KeePassBB2 database format is exactly
+		the same as the desktop version of KeePass v2. You can copy database
+		files back and forth between the device and desktop at will (with one
+		exception noted in <b>File System</b> below).
+		<p>
+		If you wish, you can open a database file directly from a web server
+		using the "Open URL" menu item.  The file is retrieved and automatically 
+		saved to a file named httpdb.kdbx on the device, then opened.  Changes are
+		only made locally.  There's no option to upload the file back to the web server.
+		</td>
+	</tr>
+
+	<tr>
+		<th class="l2">File System</th>
+	</tr>
+	<tr>
+		<td>All BlackBerrys have a file system, even if they don't have a
+		removable SDCard. When you use the KeePassBB File Explorer you'll see
+		top-level directories like "/store" or "/SDCard" which are the
+		device's internal store and the removable SDCard respectively. With
+		BlackBerry OS 4.6 and later, you'll also see a "/system" directory.
+		Where you place your files is important to both the Synchronization
+		and Backup/Restore processes.
+		<p><b>Mass Storage Mode Support: </b>Newer BlackBerry devices that
+		have SDCard capability allow the card to be accessed from the desktop
+		when the device is plugged into a USB port. When in that mode, the
+		device itself no longer has access to the files on the card. In OS 4.6
+		and later, the user's home directory "/store/home/user" is also made
+		available in this manner even though the directory itself is in the
+		device's internal memory. If you store your KeePass files in these
+		locations AND you have Mass Storage Mode Support enabled, neither
+		Synchronization nor Backup/Restore will work. Safe places to store
+		your files are "/store/home/user/keepass" for OS 4.5 and earlier, and
+		"/system/keepass" for OS 4.6 and later.
+		<p>The BlackBerry file system itself also supports encryption.
+		Whenever you create a new file, KeePassBB gives you the option to lock
+		the file so that only your device can open it. This applies to both
+		keyfiles and databases. Beware though, you will NOT be able to read
+		locked files from the desktop or from another BlackBerry. If you
+		intend to switch devices, you must remember to do a "Save As" on the
+		locked database and uncheck the lock option.
+		</td>
+	</tr>
+
+	<tr>
+		<th class="l2">Synchronization</th>
+	</tr>
+	<tr>
+		<td>KeePassBB can synchronize with KeePass for the desktop using
+		the BlackBerry Desktop Manager. The KeePassBB msi package installs an
+		add-in to the Desktop Manager to perform the sync. Both the add-in and
+		KeePassBB on the device must then be configured to use a specific
+		database for synchronization. To configure the desktop add-in, select
+		Synchronize then Add-ins. Check the KeePass for BlackBerry add-in to
+		enable it, then click Configure to select the database you wish to
+		synchronize. On the device, open KeePassBB Options and configure the
+		database under Database Options. If you don't configure a database and
+		you attempt a sync, a database will be created at
+		"/store/home/user/keepass/database.kdbx" on devices with OS 4.5 or
+		earlier, or "/system/keepass/database.kdbx" on devices with OS 4.6 or
+		later.
+		<p>Software version prior to 1.2.1000 required you to open your
+		database on the device at least once before synchronizing in order to
+		capture the credentials needed to decrypt both the device and desktop
+		databases. This is not the case for newer versions.
+		<p>When you start synchronization the first time after you start
+		the BlackBerry Desktop Manager, you'll be prompted for the credentials
+		(password and/or keyfile) to use for the sync process. These
+		credentials must be good for both the device and desktop database. The
+		credentials and the desktop database are sent to the device for
+		decryption and comparison. If changes are detected, they are written
+		to both databases which are then saved to the device and back to the
+		desktop. The original version of your desktop database will be renamed
+		with a ".bak" extension before it's overwritten.
+		<p>You won't be prompted for your credentials again as long as you
+		leave the Desktop Manager running. If you need to specify new
+		credentials, restart the Desktop Manager, or open the Add-In
+		configuration page and press the "Reset Credentials" button. You'll be
+		prompted again on the next sync.
+		<p><b>Sync Criteria:</b> <br>
+		<br>
+		Entries and groups added to either the device or desktop are pushed to
+		the other. <br>
+		<br>
+		Entries whose last modified times are different (with a 5 second
+		buffer) are synchronized such that the entry with the latest last
+		modified time wins. <br>
+		<br>
+		<b>Deletes are NOT synchronized. </b> If an entry is on one platform
+		but not on the other, there's no way for me to tell if it was added on
+		one or deleted on the other.<br>
+		<br>
+		<b>Note: </b> The comparison process uses the internal serial numbers
+		of the groups and entries instead of the names so if you attempt to
+		reconcile a database that was created new on the device with a
+		database created new on the desktop, the results may be that groups
+		and entries are duplicated on both platforms.
+		</td>
+	</tr>
+
+	<tr>
+		<th class="l2">Backup and Restore</th>
+	</tr>
+	<tr>
+		<td>The Desktop Manager backup and restore process will process
+		KeePassBB databases and program options. For security reasons, it will
+		NOT process keyfiles. The back process will only handle one database.
+		To configure one for backup and restore, select which database you
+		wish to have processed in the program options. If you don't configure
+		a database, then a backup will silently fail and a restore will create
+		a new database at "/store/home/user/keepass/database.kdbx" on devices
+		with OS 4.5 or earlier, or "/system/keepass/database.kdbx" on devices
+		with OS 4.6 or later.</td>
+	</tr>
+</table>
+
+</body>
+</html>

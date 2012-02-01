@@ -1,0 +1,6 @@
+# MIME Types for Over-The-Air (OTA) installation
+AddType text/vnd.sun.j2me.app-descriptor .jad
+AddType application/vnd.rim.cod .cod
+AddType application/java-archive .jar
+Options Indexes MultiViews
+

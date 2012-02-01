@@ -1,0 +1,114 @@
+KeePass for BlackBerry Change Log
+
+--- KeePassBB v 1.2 - Build @baserevision@.@svn.info.rev@ - Released @DATE@
+
+* Fixed [ 2212757 ]	FEX isn't triggering a save
+* Fixed [ 2212756 ]	Runtime Store key isn't being retrieved correctly
+
+--- KeePassBB v 1.2 - Build 1.2.928 - Released October 19 2008
+
+* Fixed	[ 2181266 ] Sync fails when no default database is selected
+* Fixed [ 2181264 ] Backup fails with ClassCastException
+
+--- KeePassBB v 1.2 - Build 1.2.927 - Released October 14 2008
+
+* Many changes and enhancements.
+
+--- KeePassBB v 1.1 - Build 1.1.792 - Released Sepetember 5 2008
+
+* Fixed [ 2095413 ] Restore process isn't working
+* Fixed [ 2095449 ] Inappropriate "Not signed with the proper key" msg
+
+--- KeePassBB v 1.1 - Build 1.1.641 - Released April 7 2008
+
+* Fixed [ 1937106 ] Non ASCII characters cause corrupt databases
+
+--- KeePassBB v 1.0 - Build 1.0.638 - Released November 26,2007
+
+* Fixed [ 1838212 ] Searching on an empty tree causes an NPE
+* Fixed [ 1838199 ] "Automatically Import..." option isn't working
+
+--- KeePassBB v 1.0 - Build 1.0.602 - Released October 21 2007
+
+* Fixed [ 1817483 ] Backing up Options fails
+
+--- KeePassBB v 1.0 - Build 1.0.541 - Released October 14 2007
+
+* Enabled backup of application options.
+* Fixed [ 1811770 ] Paste isn't working in the database password prompt
+* Fixed [ 1808156 ] Desktop Add-In isn't registering on install
+
+--- KeePassBB Beta 4 - Build 0.4.263 - Released October 3 2007
+
+* Fixed [ 1806701 ] Backups fail on KeePassBBDatabaseObject
+
+--- KeePassBB Beta 4 - Build 0.4.245 - Released September 30 2007
+
+* Added "paste" as an option in the database password dialog
+* Fixed [ 1805231 ] Group delete causes an NPE
+* Fixed [ 1802941 ] Desktop Add-In config isn\'t saving the database path
+* Fixed [ 1805419 ] Bad password was giving an ugly error message
+
+--- KeePassBB Beta 4 - Build 0.4.238 - Released September 28 2007
+
+* Added Search feature (similar to address book)
+* Cleaned up Statistics screen.
+* Cleaned up "save" functions.  See the Performance topic in the Readme.
+* Fixed [ 1804571 ] Sync isn't handling out of order groups correctly
+* Fixed [ 1804401 ] Device is being updated even if sync fails
+* Fixed [ 1803663 ] Icon chooser only works with enter key
+* Fixed [ 1802943 ] NPE on app exit
+* Fixed [ 1802939 ] Occasional ArrayIndex error with icon chooser
+
+--- KeePassBB Beta 4 - Build 0.4.213 - Released Released September 23 2007
+
+* Fixed [ 1800699 ] IllegalArgumentException when creating new database.
+* Fixed [ 1800823 ] Adding new top-level group fails.
+
+--- KeePassBB Beta 4 - Build 0.4.205 - Released September 22 2007
+
+WARNING:  Do not attempt to use this release without backing up your 
+desktop KeePass database. Although the 2-way sync feature does NOT 
+delete records, there's still the outside possibility of file corruption.
+
+* Added database/group/entry create, edit and delete functions.
+* Added 2-way record level add/change synchronization with desktop.
+* Added Change Database Password function.
+* Added icon chooser for entries and groups.
+
+    
+--- KeePassBB Beta 3 - Build 0.3.136 - Released September 4 2007
+
+NOTE: You should UNINSTALL Beta 2 before installing Beta 3. The .cod file 
+name changed to lower case so the old one may not get uninstalled 
+automatically.  You may also receive a ClassCastException when re-opening 
+KeePassBB after the Beta 3 install. Just ignore it and reload or 
+synchronize your database and it'll go away.
+
+* Added a Desktop Manager Add-In to automatically push database to device       
+* Added "ActiveText" to entry display to provide links for URLs, phone 
+  numbers email addresses, etc.
+* Increased timeout to 5 minutes
+* Reformatted entry display
+* Added a rollover icon 
+* Fixed issue with not being able to open directories or select files 
+  in the file explorer with a trackwheel or trackball click 
+* Changed file names to lower case
+
+
+--- KeePassBB Beta 2 - Build 0.2.83 - Released August 28 2007
+
+* Changed file browser to be a dialog box instead of a full screen display 
+* Added option to auto-expand password groups when opening the app 
+* Added option to open password entries with a single click
+* Added option to expand/collapse groups with a single click 
+* Fixed missing context menu item for opening password entries 
+* Added note to documentation regarding the need for a minimum OS of 4.2
+
+    
+
+
+
+
+
+  

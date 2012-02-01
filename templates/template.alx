@@ -1,0 +1,15 @@
+<loader version="1.0">
+  <application id="@unix.project.name@">
+    <name>@ant.project.name@</name>
+    <description>@description@</description>
+    <version>@baserevision@.@svn.info.rev@</version>
+    <vendor>@company@</vendor>
+    <copyright>Copyright (c) 2009 @company@</copyright>
+    <fileset Java="1.0">
+      <directory></directory>
+      <files>
+        @unix.project.name@.cod
+      </files>
+    </fileset>
+  </application>
+</loader>

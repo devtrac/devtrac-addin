@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet type='text/xsl' href='_UpgradeReport_Files/UpgradeReport.xslt'?><UpgradeLog>
+<Properties><Property Name="Solution" Value="Installer">
+</Property><Property Name="Solution File" Value="C:\workspace\keepassbb2-src-2.0.1527\Installer\Installer.sln">
+</Property><Property Name="Date" Value="2012年2月1日">
+</Property><Property Name="Time" Value="14:11">
+</Property></Properties><Event ErrorLevel="0" Project="" Source="Installer.sln" Description="File successfully backed up as C:\workspace\keepassbb2-src-2.0.1527\Installer\Backup\Installer.sln">
+</Event><Event ErrorLevel="0" Project="Installer.vdproj" Source="Installer.vdproj" Description="Project file successfully backed up as C:\workspace\keepassbb2-src-2.0.1527\Installer\Backup\Installer.vdproj">
+</Event><Event ErrorLevel="0" Project="" Source="Installer.sln" Description="Solution converted successfully">
+</Event><Event ErrorLevel="3" Project="" Source="Installer.sln" Description="Converted">
+</Event></UpgradeLog>

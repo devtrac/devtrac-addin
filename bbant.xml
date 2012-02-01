@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<project name="bbant" default="all">
+	<tstamp />
+	<property file="../common/bbant.properties" />
+	<property file="${rim.sim.home}/sims.properties" />
+
+	<property name="classpath" value="build/classes" />
+	<filter token="ant.project.name" value="${ant.project.name}" />
+	<filter token="unix.project.name" value="${unix.project.name}" />
+	<filter token="company" value="${company}" />
+	<filter token="MANUFACTURER" value="${company}" />
+	<filter token="COPYRIGHT" value="Copyright (c) 2010, ${company}" />
+	<filter token="baserevision" value="${baserevision}" />
+	<filter token="description" value="${description}" />
+	<filter token="DATE" value="${TODAY}" />
+
+	<target name="all" />
+
+	<target name="device.prepare" description="" depends="device.clean,svn.getrevision">
+		<delete dir="build/src" />
+		<copy todir="build/src" overwrite="true">
+			<fileset dir="src" />
+		</copy>
+		<mkdir dir="build/output"/>
+		<delete dir="build/website" />
+		<mkdir dir="build/website"/>
+		<mkdir dir="build/website/${unix.project.name}"/>
+		<mkdir dir="build/resources"/>
+	</target>
+
+	<target name="device.compile.resources" depends="device.prepare" description="Device Compile Resources">
+		<echo file="build/resources/${unix.project.name}-resources.rapc">
+MIDlet-Name: ${ant.project.name}-Resources
+MIDlet-Version: ${Revision}
+MIDlet-Vendor: ${company}
+MIDlet-Jar-URL: ${unix.project.name}-Resources.jar
+MIDlet-Jar-Size: 0
+MicroEdition-Profile: MIDP-2.0
+MicroEdition-Configuration: CLDC-1.1
+RIM-Library-Flags: 2
+	</echo>
+		<apply executable="${rim.jde.home}/bin/rapc.exe" parallel="true" failonerror="true">
+			<arg line="-verbose -nowarn -import='${rim.jde.home}/lib/net_rim_api.jar'" />
+			<arg line="-library=build/resources/${unix.project.name}-resources build/resources/${unix.project.name}-resources.rapc" />
+			<fileset dir="src">
+				<patternset>
+					<include name="**/*.rrh" />
+					<include name="**/*.rrc" />
+				</patternset>
+			</fileset>
+		</apply>
+		<delete>
+			<fileset dir="build/resources" excludes="**/*.jar" />
+		</delete>
+	</target>
+
+	<target name="device.generate.files" depends="svn.getrevision" description="sss">
+		<filter token="svn.info.rev" value="${Revision}" />
+		<copy file="templates/template.rapc" tofile="build/output/${unix.project.name}.rapc" filtering="true" overwrite="true" />
+		<copy file="templates/template.alx" tofile="build/output/${unix.project.name}.alx" filtering="true" overwrite="true" />
+		<copy file="src/img/${unix.project.name}.png" tofile="build/output/${unix.project.name}.png" filtering="false" overwrite="true" />
+	</target>
+
+	<target name="device.link" depends="device.prepare,device.generate.files,doc.generate.html" description="Device link">
+		<apply executable="${rim.jde.home}/bin/rapc.exe" dir="build/output" failonerror="true" parallel="true">
+			<arg line="-verbose -nowarn -import='${rim.jde.home}/lib/net_rim_api.jar'" />
+			<arg line="-codename=${unix.project.name}" />
+			<arg line="${unix.project.name}.rapc" />
+			<arg line="package:com.fairview5.${unix.project.name}=${signing.keyfile}" />
+			<arg line="../../${signing.keyfile}" />
+			<fileset dir="build/src" />
+		</apply>
+		<copy todir="build/website/${unix.project.name}/download/${unix.project.name}-${baserevision}.${Revision}/ota/" overwrite="true">
+			<fileset dir="build/output" includes="*.cod,*.jad" />
+		</copy>
+		<echo file="build/website/${unix.project.name}/download/${unix.project.name}-${baserevision}.${Revision}/ota/.htaccess">
+# MIME Types for Over-The-Air (OTA) installation
+AddType text/vnd.sun.j2me.app-descriptor .jad
+AddType application/vnd.rim.cod .cod
+AddType application/java-archive .jar
+Options Indexes MultiViews
+DirectoryIndex ${unix.project.name}.jad 			
+		</echo>
+		<echo file="build/website/${unix.project.name}/download/.htaccess">
+Options Indexes MultiViews
+		</echo>
+		<echo file="build/website/${unix.project.name}/download/${unix.project.name}-${baserevision}.${Revision}/.htaccess">
+Options Indexes MultiViews
+		</echo>
+		<unzipper zipfile="build/output/${unix.project.name}.cod" dest="build/website/${unix.project.name}/download/${unix.project.name}-${baserevision}.${Revision}/ota" />
+
+	</target>
+
+	<target name="Link and Sign" description="Link and Sign" depends="device.link,device.sign" />
+
+	<target name="device.sign" description="Sign device code">
+		<java jar="${rim.jde.home}/bin/SignatureTool.jar" fork="true" dir="build/output">
+			<arg line="-a -c -p ${signing.password} ${unix.project.name}.cod" />
+		</java>
+		<copy todir="build/website/${unix.project.name}/download/${unix.project.name}-${baserevision}.${Revision}/ota" overwrite="true">
+			<fileset dir="build/output" includes="*.cod,*.jad" />
+		</copy>
+		<unzipper zipfile="build/output/${unix.project.name}.cod" dest="build/website/${unix.project.name}/download/${unix.project.name}-${baserevision}.${Revision}/ota" />
+	</target>
+
+	<macrodef name="unzipper" backtrace="false">
+		<attribute name="zipfile" />
+		<attribute name="dest" />
+		<sequential>
+			<exec executable="unzip.exe" failonerror="false" outputproperty="zipout" errorproperty="ziperr">
+				<arg line="-o -d @{dest} @{zipfile}" />
+			</exec>
+			<echo>${zipout}</echo>
+		</sequential>
+	</macrodef>
+
+	<target name="dist" depends="all.clean,svn.commit,device.link,device.sign" description="Create distribution packages">
+		<mkdir dir="dist" />
+		<delete dir="dist/${unix.project.name}-${baserevision}.${Revision}" />
+		<delete dir="dist/${unix.project.name}-src-${baserevision}.${Revision}" />
+		<mkdir dir="dist/${unix.project.name}-${baserevision}.${Revision}" />
+		<mkdir dir="dist/${unix.project.name}-src-${baserevision}.${Revision}" />
+
+		<copy todir="dist/${unix.project.name}-${baserevision}.${Revision}" overwrite="true">
+			<fileset dir="build/website"/>
+		</copy>
+		
+		<copy todir="dist/${unix.project.name}-${baserevision}.${Revision}" overwrite="true">
+			<fileset dir="build/output" includes="*.cod,*.jad,*.jar,*.alx,*.txt,*.dll,*.msi,*.rtf" />
+		</copy>
+		<zip destfile="dist/${unix.project.name}-${baserevision}.${Revision}/${unix.project.name}/download/${unix.project.name}-${baserevision}.${Revision}/${unix.project.name}-${baserevision}.${Revision}.zip" excludes=".svn*">
+			<fileset dir="dist" includes="${unix.project.name}-${baserevision}.${Revision}/**" />
+		</zip>
+		
+		<copy todir="dist/${unix.project.name}-src-${baserevision}.${Revision}" overwrite="true" includeEmptyDirs="false">
+			<fileset dir="build/output" includes="*.txt,*.rtf" />
+			<fileset dir="." includes="src/**,templates/**,build.xml,build.properties,bbant.xml,bbant.properties" excludes="**/*.ncb,**/*.user,**/*.suo,**/.svn*" />
+		</copy>
+
+		<zip destfile="dist/${unix.project.name}-${baserevision}.${Revision}/${unix.project.name}/download/${unix.project.name}-${baserevision}.${Revision}/${unix.project.name}-src-${baserevision}.${Revision}.zip">
+			<fileset dir="dist" includes="${unix.project.name}-src-${baserevision}.${Revision}/**" />
+		</zip>
+		<delete dir="dist/${unix.project.name}-src-${baserevision}.${Revision}" />
+		<delete dir="dist/${unix.project.name}-web-${baserevision}.${Revision}" />
+
+	</target>
+
+
+
+	<!--************************************************************************-->
+	<!--************************************************************************-->
+
+	<target name="all.clean">
+		<delete dir="build" />
+	</target>
+
+	<target name="device.clean">
+		<delete dir="build/classes" />
+		<delete dir="build/verified" />
+		<delete dir="build/obfuscated" />
+		<delete dir="build/lib" />
+		<delete dir="build/src" />
+		<delete dir="build/output" includes="*.cod,*.rapc,*.jad,*.alx,*.cs*,*.debug,*.jar" />
+	</target>
+
+	<target name="all.clean.output">
+		<delete dir="build/output" />
+	</target>
+
+	<!--************************************************************************-->
+	<!--************************************************************************-->
+
+	<target name="svn.commit">
+		<exec executable="svn.exe">
+			<arg line="commit --message=COMMITDIST --non-interactive" />
+		</exec>
+	</target>
+
+	<target name="svn.getrevision">
+		<filter token="FILEVERSION" value="111" />
+	</target>
+
+	<target name="Link and Load" description="Link and Load" depends="device.link,sim.load" />
+
+	<target name="sim.load" depends="sim.kill" description="Simulator loader">
+		<delete>
+			<fileset dir="${rim.sim.dir}" includes="**/${unix.project.name}*.*" />
+		</delete>
+		<copy todir="${rim.sim.dir}">
+			<fileset dir="build/output" includes="${unix.project.name}*.*" />
+		</copy>
+		<exec executable="${rim.sim.command}" osfamily="windows" vmlauncher="true" failonerror="false" spawn="true" dir="${rim.sim.dir}">
+			<arg line="${rim.sim.args}" />
+		</exec>
+	</target>
+	
+	<target name="sim.run" depends="sim.kill" description="Simulator runner">
+		<exec executable="${rim.sim.command}" osfamily="windows" vmlauncher="true" failonerror="false" spawn="true" dir="${rim.sim.dir}">
+			<arg line="${rim.sim.args}" />
+		</exec>
+	</target>
+
+	<target name="sim.debug" depends="sim.kill" description="Simulator loader">
+		<copy todir="${rim.sim.dir}">
+			<fileset dir="build/output" includes="${unix.project.name}.*" />
+		</copy>
+		<exec executable="jdb.exe" osfamily="windows" input="${rim.sim.dir}/jdb.startup" vmlauncher="true" failonerror="false" spawn="false" dir="${rim.sim.dir}">
+			<arg line="-launch -connect com.sun.jdi.SocketAttach:hostname=localhost,port=8000,timeout=30" />
+		</exec>
+	</target>
+
+	<target name="sim.kill" description="Simulator killer">
+		<exec executable="${rim.sim.dir}/fledgecontroller.exe" osfamily="windows" vmlauncher="true" failonerror="false">
+			<arg line="/execute=UsbCableInsertion(false)" />
+		</exec>
+		<exec executable="taskkill.exe" osfamily="windows" vmlauncher="true" failonerror="false">
+			<arg line="/IM fledge.exe /F /T" />
+		</exec>
+		<!--exec executable="taskkill.exe" osfamily="windows" vmlauncher="true" failonerror="false">
+			<arg line="/IM BbDevMgr.exe /F /T" />
+		</exec-->
+	</target>
+
+	<target name="sim.buildfile" description="SIM.BUILDDFILE">
+		<concat destfile="${rim.sim.home}/sims.properties">
+			<fileset dir="${rim.home}" casesensitive="no">
+				<include name="BlackBerry JDE 6.0.0/bin/settings.rc" />
+				<include name="BlackBerry JDE 5.0.0/bin/settings.rc" />
+				<include name="BlackBerry JDE 4.7.0/bin/settings.rc" />
+				<include name="BlackBerry JDE 4.6.1/bin/settings.rc" />
+				<include name="BlackBerry JDE 4.6.0/bin/settings.rc" />
+				<include name="BlackBerry JDE 4.5.0/bin/settings.rc" />
+				<include name="BlackBerry JDE 4.3.0/bin/settings.rc" />
+				<include name="BlackBerry JDE 4.2.1/bin/settings.rc" />
+			</fileset>
+			<filterchain>
+				<linecontainsregexp>
+					<regexp pattern="SimulatorCommand[0-9]" />
+				</linecontainsregexp>
+				<tokenfilter>
+					<replacestring from="\" to="/" />
+				</tokenfilter>
+				<tokenfilter>
+					<replacestring from="SimulatorCommand" to="" />
+				</tokenfilter>
+			</filterchain>
+		</concat>
+	</target>
+
+	<target name="sim.setmodel" description="Sets simulator model">
+		<script language="beanshell" manager="bsf">
+			Vector v = new Vector();
+			Properties p = new Properties();
+			FileInputStream fin = new FileInputStream(project.getProperty("rim.sim.home")+"/sims.properties");
+			p.load(fin);
+			fin.close();
+			Enumeration eee = p.propertyNames();
+			while(eee.hasMoreElements()) {
+				String s = eee.nextElement();
+				if (s.startsWith("rim")) continue;
+				v.add(s);
+			}
+			Object[] oa = v.toArray();
+			Arrays.sort(oa);
+			v.clear();
+			for(int i=0;i &lt; oa.length; i++) v.add(oa[i]);
+			JComboBox box = new JComboBox(v);
+			JCheckBox check = new JCheckBox("Secure Mode");
+			int rc = JOptionPane.showConfirmDialog(null, new Object[]{box,check}, "Select simulator:", JOptionPane.OK_CANCEL_OPTION);
+			if (rc != JOptionPane.OK_OPTION) return;
+			project.setProperty("sim.model", box.getSelectedItem());
+			String l = p.getProperty(box.getSelectedItem());
+			int ix = l.indexOf("fledge.exe");
+			String cmd = l.substring(0,ix+10).replace("/bin/..", "");
+			String args = l.substring(ix+11);
+			project.setProperty("sim.command", cmd);
+			project.setProperty("sim.args", args + (check.isSelected() ? " /secure=true" : ""));
+			ix = cmd.lastIndexOf("/");
+			String dir=cmd.substring(0,ix);
+			project.setProperty("sim.dir", dir);
+			
+			</script>
+		<fail message="No model specified" unless="sim.model" />
+
+		<propertyfile file="${rim.sim.home}/sims.properties">
+			<entry key="rim.sim.model" value="${sim.model}" />
+			<entry key="rim.sim.command" value="${sim.command}" />
+			<entry key="rim.sim.dir" value="${sim.dir}" />
+			<entry key="rim.sim.args" value="${sim.args}" />
+		</propertyfile>
+
+	</target>
+
+	<target name="USB Load" description="USB Load">
+		<exec executable="javaloader.exe" osfamily="windows" vmlauncher="true" failonerror="true">
+			<arg line="-u load build/output/${unix.project.name}.cod" />
+		</exec>
+	</target>
+
+	<!--************************************************************************-->
+	<!--************************************************************************-->
+
+	<target name="doc.generate.html" depends="svn.getrevision">
+		<filter token="svn.info.rev" value="${Revision}" />
+		<copy file="templates/License.txt" todir="build/output" overwrite="true" filtering="true" />
+		<copy file="templates/License.rtf" todir="build/output" overwrite="true" filtering="true" />
+		<copy todir="build/website/${unix.project.name}" filtering="true" overwrite="true">
+			<fileset dir="website" />
+		</copy>
+		<copy todir="build/website/${unix.project.name}" filtering="true" overwrite="true">
+			<fileset dir="website" />
+<!--			<chainedmapper>
+				<regexpmapper from="(.*)\.([a-z]+)\.html" to="\1.html.\2" />
+			</chainedmapper> 
+-->
+		</copy>
+	</target>
+
+</project>

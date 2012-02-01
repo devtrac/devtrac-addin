@@ -1,0 +1,220 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Strict//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>KeePass for BlackBerry v2 FAQ</title>
+<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+<table>
+	<tr>
+		<th>Frequently Asked Questions</th>
+	</tr>
+
+
+	<tr>
+		<th class="l2">What does the sync error "Unable to decrypt (device or desktop) database
+		using the supplied credentials" mean?
+		</th>
+	</tr>
+	<tr>
+		<td>
+		When you sync for the first time after starting the desktop manager, you're prompted 
+		for a password and/or keyfile to use for the sync process.  The device must be able to decrypt
+		both the device and desktop databases using these credentials.  The error indicates that it
+		wasn't successful.  
+		<p></p>
+		Make sure you can open both databases with the same credentials (password alone, or password plus keyfile) 
+		then restart the desktop manager and try again.  When prompted, make sure you enter your credentials
+		correctly and leave the field for the keyfile empty if you're not using keyfiles.
+		</td>
+	</tr>
+
+
+	<tr>
+		<th class="l2">What's the difference between Internal and
+		External file mode?</th>
+	</tr>
+	<tr>
+		<td>KeePassBB2 can store your password database one of two
+		ways...in the device's internal PersistentStore (Internal Mode, the
+		default), or as a regular file in the device's file system (External
+		Mode). There are advantages and disadvantages to each.
+
+		<p>Internal Mode: If you only have one database to manage, this is
+		the best solution. The database is stored in the device's internal
+		PersistentStore and is accessible only by the KeePassBB program. This
+		mode fully supports synchronization using the Desktop manager Add-In.
+
+		<p>External Mode: If you work with multiple databases, this is
+		your best solution as you can store multiple databases on your SDCard.
+		It does not however, support synchronization using the Desktop Manager
+		Add-In. Why? Some parts of the file system, like the SDCard, become
+		unavailable when you connect the device to a desktop via USB. This
+		causes a Catch-22 situation where you need to use USB to synchronize
+		but connecting via USB causes the database file to become unavailable.
+		You can, of course, manually copy your database and key files back and
+		forth to/from your SDCard using the drive letter assigned by Windows.
+		
+		</td>
+	</tr>
+
+
+	<tr>
+		<th class="l2">How do I switch between Internal and External
+		Mode?</th>
+	</tr>
+	<tr>
+		<td>If you're in internal mode and want to switch to external
+		mode, use the "Save As" menu item to save the database to a file, then
+		under Options, set "Use External File Mode" to "On". You should now
+		close and restart KeePassBB2.
+		<p>If you're in external mode and want to switch to internal mode,
+		turn "Use External File Mode" to "Off" under Options, then use the
+		"Import DB from File" menu item.
+		</td>
+	</tr>
+
+	<tr>
+		<th class="l2">How do I use a Key File?</th>
+	</tr>
+	<tr>
+		<td>Internal Mode: Connect your device to your desktop and copy
+		the Key File to your SDCard, then disconnect. On the device, open
+		KeePassBB2 and select the "Import Key File" menu ittem, then browse
+		your SDCard and select the file. Once imported, this Key File will be
+		used for opening existing databases and creating new ones. To delete
+		the Key File, select the "Delete Key File" menu item.
+		<p>External Mode: Connect your device to your desktop and copy the
+		Key File to your SDCard, then disconnect. Reference this file when
+		prompted during a database create or open.
+		</td>
+	</tr>
+
+	<tr>
+		<th class="l2">How do I import a database?</th>
+	</tr>
+	<tr>
+		<td>Internal Mode: Select either the "Import DB From File" or
+		"Import DB From URL" menu items. The file you load will become your
+		new internal database.
+		<p>External Mode: Select the "Import DB From URL" menu item. The
+		file will be downloaded, then saved as "httpdb.kdbx", then opened.
+		</td>
+	</tr>
+
+	<tr>
+		<th class="l2">What encryption algorithms does KeePassBB2
+		support?</th>
+	</tr>
+	<tr>
+		<td>KeePassBB2 supports the same encryption algorithm as the
+		desktop version of KeePass, namely AES-256.</td>
+	</tr>
+
+	<tr>
+		<th class="l2">Is the database format the same as KeePass on the desktop?</th>
+	</tr>
+	<tr>
+		<td>Yes it is.  You can copy files between KeePassBB and KeePass v2.08 or greater.</td>
+	</tr>
+
+	<tr>
+		<th class="l2">Does KeePassBB2 support user defined fields.</th>
+	</tr>
+	<tr>
+		<td>Version 2 of KeePass introduced the ability to create user defined
+		fields for password entries.  KeePassBB2 supports viewing and modifying
+		the fields but not the creation of new fields.</td>
+	</tr>
+
+	<tr>
+		<th class="l2">What does the Desktop Manager Add-In do?</th>
+	</tr>
+	<tr>
+		<td>The Desktop Manager Add-In handles the communication between
+		KeePassBB2 on the device and KeePass on the desktop. When you
+		synchronize, the add-in sends your desktop database to the device
+		where it's compared to, and reconciled with, the device version of the
+		database. The databases are then written back to their respective
+		sources with the changes, if any.</td>
+	</tr>
+
+
+
+	<tr>
+		<th class="l2">How does Synchronization work?</th>
+	</tr>
+	<tr>
+		<td>KeePassBB2 can synchronize with KeePass for the desktop using
+		the BlackBerry Desktop Manager. The KeePassBB2 msi package installs an
+		add-in to the Desktop Manager to perform the sync. To configure the desktop add-in, select
+		Synchronize then Add-ins. Check the KeePass for BlackBerry add-in to
+		enable it, then click Configure to select the database you wish to
+		synchronize. 
+		
+		<p>When you start synchronization the first time after you start
+		the BlackBerry Desktop Manager, you'll be prompted for the credentials
+		(password and/or keyfile) to use for the sync process. These
+		credentials must be good for both the device and desktop database. The
+		credentials and the desktop database are sent to the device for
+		decryption and comparison. If changes are detected, they are written
+		to both databases which are then saved to the device and back to the
+		desktop. The original version of your desktop database will be renamed
+		with a ".bak" extension before it's overwritten.
+		<p>You won't be prompted for your credentials again as long as you
+		leave the Desktop Manager running. If you need to specify new
+		credentials, restart the Desktop Manager, or open the Add-In
+		configuration page and press the "Reset Credentials" button. You'll be
+		prompted again on the next sync.
+		<p><b>Sync Criteria:</b> <br>
+		<br>
+		Entries and groups added to either the device or desktop are pushed to
+		the other. <br>
+		<br>
+		Entries whose last modified times are different (with a 5 second
+		buffer) are synchronized such that the entry with the latest last
+		modified time wins. <br>
+		<br>
+		<b>Deletes are NOT synchronized. </b> If an entry is on one platform
+		but not on the other, there's no way for me to tell if it was added on
+		one or deleted on the other.<br>
+		<br>
+		<b>Note: </b> The comparison process uses the internal serial numbers
+		of the groups and entries instead of the names so if you attempt to
+		reconcile a database that was created new on the device with a
+		database created new on the desktop, the results may be that groups
+		and entries are duplicated on both platforms.
+		</td>
+	</tr>
+
+	<tr>
+		<th class="l2">Why doesn't KeePassBB2 support synchronization of deleted items?</th>
+	</tr>
+	<tr>
+		<td>There's no way to tell if an entry that exists in one database but not the other
+		is the result of it being added to the first or deleted from the second.  To be safe, 
+		it's assumed that the entry was added.  
+		</td>
+	</tr>
+
+	<tr>
+		<th class="l2">Are my settings and database backed up?</th>
+	</tr>
+	<tr>
+		<td>
+		Internal Mode:  Both the database and your settings are backed up when you 
+		perform a Desktop Manager backup.  For security reasons, key files are never backed up.
+		<p>
+		External Mode:  Your settings are backed up, but backing up the database (or any other
+		files on your SDCard) is left to the user. 
+		</td>
+	</tr>
+
+
+
+
+</table>
+
+</body>
+</html>

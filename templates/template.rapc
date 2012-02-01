@@ -1,0 +1,14 @@
+MIDlet-Name: @ant.project.name@
+MIDlet-Description: @description@
+MIDlet-Version: @baserevision@.@svn.info.rev@
+MIDlet-Vendor: @company@
+MIDlet-Jar-URL: @unix.project.name@.jar
+MIDlet-Jar-Size: 0
+MicroEdition-Profile: MIDP-2.0
+MicroEdition-Configuration: CLDC-1.1
+MIDlet-1: @description@,@unix.project.name@.png,
+RIM-MIDlet-Flags-1: 0
+MIDlet-2: @description@ Sync,,init
+RIM-MIDlet-Flags-2: 3
+RIM-TouchCompatibilityMode: false
+RIM-TouchCompatibilityMode-UserChangeable: true

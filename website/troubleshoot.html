@@ -1,0 +1,38 @@
+<html>
+<head>
+<title>Troubleshooting Tips</title>
+</head>
+
+<body>
+<h3>Synchronization Troubleshooting</h3>
+<ol>
+<li>Make a backup of your database and keyfile and store them in a safe place.
+<li>Uninstall KeePassBB from your device.  If you have both v1 and v2 installed, uninstall them both.
+You should be prompted to reboot
+to complete the uninstall.  If not, pull the battery from your device for a few seconds.
+<li>Stop the BlackBerry Desktop Manager and insure your device is NOT plugged in to the PC via USB.
+<li>Uninstall the KeePassBB Desktop Manager Add-In from your PC using Add-Remove Programs (or Programs
+and Features if on Vista).  If you have both v1 and v2 installed, uninstall both.
+<li>Start the Desktop Manager and insure that the KeePassBBAddIn no longer appears
+in Synchronize/Configre/Add-Ins.
+<li>Close the BlackBerry Desktop Manager again.
+<li>Install KeePassBB v2 on the device from the OTA link on the website.  Do not make any configuration changes at this time.
+<li>Reboot the device by pulling the battery for a few seconds. The reboot is required to 
+register the synchronization process on the device.
+<li>Install KeePassBB v2 Desktop Manager Add-In on your PC using the MSI file from the website.
+<li>Using KeePass v2.07 on the PC, create a new skeleton database using only a simple, lower case password.
+Do NOT use a keyfile at this time.
+<li>Open the BlackBerry Desktop Manager and navigate to Synchronize/Configure/Add-Ins.
+Ensure that the KeePassBB2 AddIn appears in the list and check the box to enable it.
+Uncheck any other Add-Ins (you can re-check them after the test).
+<li>With the KeePassBB2 AddIn entry selected, press the Configure button and select the 
+skeleton database you created in the earlier step.
+<li>Connect the device to a PC USB port.  
+<li>In the Desktop Manager Synchronize screen, ensure that only the "Run add-in actions"
+box is checked.
+<li>Press the Synchronize button.  You should see the progress dialog and get a message stating that 
+"No database was found on the device...". 
+</ol>
+</body>
+</html>
+

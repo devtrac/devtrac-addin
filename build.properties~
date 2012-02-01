@@ -1,0 +1,18 @@
+#Wed Sep 17 17:11:56 MDT 2008
+rim.home=C:/usr/devtools/Research In Motion
+rim.sim.home=${rim.home}/sims
+rim.jde421.home=${rim.home}/BlackBerry JDE 4.2.1
+rim.jde430.home=${rim.home}/BlackBerry JDE 4.3.0
+rim.jde450.home=${rim.home}/BlackBerry JDE 4.5.0
+rim.jde460.home=${rim.home}/BlackBerry JDE 4.6.0
+rim.jde500.home=${rim.home}/BlackBerry JDE 5.0.0
+rim.jde.home=C:\eclipse-java-indigo-SR1-win32\plugins\net.rim.ejde.componentpack4.6.0_4.6.0.23\components
+rim.bootclasspath=${rim.jde421.home}/lib/net_rim_api.jar
+rim.desktoplib.path=C:/Program Files (x86)/Research In Motion/BlackBerry
+company=Fairview 5 Engineering, LLC
+vs.path=C:/Program Files/Microsoft Visual Studio 10.0/Common7/IDE
+
+unix.project.name=keepassbb2
+baserevision=2.0
+baserevisionc=2,0
+description=KeePass for BlackBerry v2

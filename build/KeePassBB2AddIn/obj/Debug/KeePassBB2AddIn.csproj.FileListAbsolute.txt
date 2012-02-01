@@ -1,0 +1,15 @@
+C:\workspace\keepassbb2-src-2.0.1527\KeePassBB2AddIn\bin\Debug\KeePassBB2AddIn.dll.config
+C:\workspace\keepassbb2-src-2.0.1527\KeePassBB2AddIn\bin\Debug\KeePassBB2AddIn.dll
+C:\workspace\keepassbb2-src-2.0.1527\KeePassBB2AddIn\bin\Debug\KeePassBB2AddIn.pdb
+C:\workspace\keepassbb2-src-2.0.1527\KeePassBB2AddIn\bin\Debug\KeePassBB2AddIn.tlb
+C:\workspace\keepassbb2-src-2.0.1527\KeePassBB2AddIn\bin\Debug\Interop.DESKTOPAPILib.dll
+C:\workspace\keepassbb2-src-2.0.1527\KeePassBB2AddIn\obj\Debug\ResolveAssemblyReference.cache
+C:\workspace\keepassbb2-src-2.0.1527\KeePassBB2AddIn\obj\Debug\Interop.DESKTOPAPILib.dll
+C:\workspace\keepassbb2-src-2.0.1527\KeePassBB2AddIn\obj\Debug\KeePassBB2AddIn.csproj.ResolveComReference.cache
+C:\workspace\keepassbb2-src-2.0.1527\KeePassBB2AddIn\obj\Debug\KeePassBB2AddIn.ConfigForm.resources
+C:\workspace\keepassbb2-src-2.0.1527\KeePassBB2AddIn\obj\Debug\KeePassBB2AddIn.PasswordForm.resources
+C:\workspace\keepassbb2-src-2.0.1527\KeePassBB2AddIn\obj\Debug\KeePassBB2AddIn.ProgressForm.resources
+C:\workspace\keepassbb2-src-2.0.1527\KeePassBB2AddIn\obj\Debug\GenerateResource-ResGen.read.1.tlog
+C:\workspace\keepassbb2-src-2.0.1527\KeePassBB2AddIn\obj\Debug\GenerateResource-ResGen.write.1.tlog
+C:\workspace\keepassbb2-src-2.0.1527\KeePassBB2AddIn\obj\Debug\KeePassBB2AddIn.dll
+C:\workspace\keepassbb2-src-2.0.1527\KeePassBB2AddIn\obj\Debug\KeePassBB2AddIn.pdb

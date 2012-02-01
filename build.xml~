@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<project name="KeePassBB2" default="all">
+	<tstamp/>
+	<property environment="env"/>
+	<property file="build.properties"/>
+	<property file="secure.properties"/>
+	<import file="bbant.xml"/>
+
+	<target name="all" depends="all.clean,doc.generate.html,device.link,addin.compile,installer.build" description="build all"/>
+
+	<target name="addin.prepare" depends="addin.clean,svn.getrevision">
+		<copy todir="build/KeePassBB2AddIn" overwrite="true" filtering="true">
+			<fileset dir="KeePassBB2AddIn" includes="*/**"/>
+		</copy>
+		<replaceregexp file="build/KeePassBB2AddIn/Properties/AssemblyInfo.cs" flags="g"
+                   match='AssemblyVersion\("[0-9,.]+"\)'
+                   replace='AssemblyVersion\("${baserevision}.${Revision}"\)'/>
+		<replaceregexp file="build/KeePassBB2AddIn/Properties/AssemblyInfo.cs" flags="g"
+                   match='AssemblyFileVersion\("[0-9,.]+"\)'
+                   replace='AssemblyFileVersion\("${baserevision}.${Revision}"\)'/>
+	</target>
+
+	<target name="addin.compile" depends="addin.prepare" description="Compile AddIn">
+		<!-- <exec executable="${vs.path}/devenv.com" dir="build/KeePassBB2AddIn"
+          osfamily="windows" vmlauncher="true" failonerror="true">
+			<arg value="KeePassBB2AddIn.sln"/>
+			<arg line="/Rebuild release"/>
+		</exec> -->
+		<copy file="build/KeePassBB2AddIn/bin/Debug/KeePassBB2AddIn.dll" todir="build/output"/>
+		<copy file="build/KeePassBB2AddIn/bin/Debug/Interop.DESKTOPAPILib.dll" todir="build/output"/>
+	</target>
+
+	<target name="installer.prepare" depends="all.clean,svn.getrevision,tools.getuuid">
+		<copy todir="build/Installer" overwrite="true" filtering="true">
+			<fileset dir="Installer"/>
+		</copy>
+
+		<replaceregexp file="build/Installer/Installer.vdproj" flags="g"
+                   match='"ProductVersion" = "8:[0-9,.]+"'
+                   replace='"ProductVersion" = "8:${baserevision}.${Revision}"'/>
+
+		<replaceregexp file="build/Installer/Installer.vdproj" flags="g"
+                   match='"Manufacturer" = "8:.+"'
+                   replace='"Manufacturer" = "8:${company}"'/>
+
+		<replaceregexp file="build/Installer/Installer.vdproj" flags="g"
+                   match='"ProductCode" = "8:.+"'
+                   replace='"ProductCode" = "8:{${tools.uuid}}"'/>
+
+		<replaceregexp file="build/Installer/Installer.vdproj" flags="g"
+                   match='..\\\\build\\\\output'
+                   replace='..\\\\\\\\output'/>
+	</target>
+
+
+	<target name="installer.build" depends="installer.prepare,addin.compile,device.link,device.sign" description="Compile AddIn, Device and build Installer">
+		<exec executable="${vs.path}/devenv.com" dir="build/Installer"
+          osfamily="windows" vmlauncher="true" failonerror="true">
+			<arg value="Installer.sln"/>
+			<arg line="/Rebuild release /Project Installer"/>
+		</exec>
+		<copy file="build/Installer/Release/${unix.project.name}.msi" todir="build/output"/>
+	</target>
+
+	<target name="dist" depends="all.clean,svn.commit,svn.getrevision,installer.build"
+   description="Create distribution packages">
+		<mkdir dir="dist"/>
+		<delete dir="dist/${unix.project.name}-${baserevision}.${Revision}"/>
+		<delete dir="dist/${unix.project.name}-src-${baserevision}.${Revision}"/>
+		<delete dir="dist/${unix.project.name}-web-${baserevision}.${Revision}"/>
+		<mkdir dir="dist/${unix.project.name}-${baserevision}.${Revision}"/>
+		<mkdir dir="dist/${unix.project.name}-src-${baserevision}.${Revision}"/>
+		<mkdir dir="dist/${unix.project.name}-web-${baserevision}.${Revision}"/>
+
+		<copy todir="dist/${unix.project.name}-web-${baserevision}.${Revision}" overwrite="true">
+			<fileset dir="build/website"/>
+		</copy>
+		
+		
+		<copy todir="dist/${unix.project.name}-${baserevision}.${Revision}" overwrite="true">
+			<fileset dir="build/output" includes="*.cod,*.jad,*.jar,*.alx,*.txt,*.dll,*.msi,*.rtf"/>
+		</copy>
+		
+		<zip destfile="dist/${unix.project.name}-web-${baserevision}.${Revision}/${unix.project.name}/download/${unix.project.name}-${baserevision}.${Revision}/${unix.project.name}-${baserevision}.${Revision}.zip" excludes=".svn*">
+			<fileset dir="dist" includes="${unix.project.name}-${baserevision}.${Revision}/**"/>
+		</zip>
+		
+		<copy todir="dist/${unix.project.name}-src-${baserevision}.${Revision}" overwrite="true"
+          includeEmptyDirs="false">
+			<fileset dir="build/output" includes="*.txt,*.rtf"/>
+			<fileset dir="." includes="src/**,templates/**,KeePassBB2AddIn/*,KeePassBB2AddIn/Properties/*,Installer/*,build.xml,build.properties,bbant.xml,bbant.properties,KeePassBB.jdw,KeePassBB.jdp,tools/**,website/**"
+               excludes="**/*.ncb,**/*.user,**/*.suo,**/.svn*"/>
+		</copy>
+
+		<zip destfile="dist/${unix.project.name}-web-${baserevision}.${Revision}/${unix.project.name}/download/${unix.project.name}-${baserevision}.${Revision}/${unix.project.name}-src-${baserevision}.${Revision}.zip">
+			<fileset dir="dist" includes="${unix.project.name}-src-${baserevision}.${Revision}/**"/>
+		</zip>
+
+		<copy file="build/output/${unix.project.name}.msi" 
+			tofile="dist/${unix.project.name}-web-${baserevision}.${Revision}/${unix.project.name}/download/${unix.project.name}-${baserevision}.${Revision}/${unix.project.name}-${baserevision}.${Revision}.msi"/>
+
+		<delete dir="dist/${unix.project.name}-${baserevision}.${Revision}"/>
+		<delete dir="dist/${unix.project.name}-src-${baserevision}.${Revision}"/>
+		
+	</target>
+
+	<!--************************************************************************-->
+	<!--************************************************************************-->
+
+	<target name="addin.clean">
+		<delete dir="build/KeePassBB2AddIn"/>
+		<delete dir="build/output/KeePassBB2AddIn.dll"/>
+	</target>
+
+	<target name="installer.clean">
+		<delete dir="build/Installer"/>
+		<delete dir="build/output/${unix.project.name}.msi"/>
+	</target>
+
+	<target name="tools.getuuid">
+		<java classname="guidgen" outputproperty="tools.uuid" classpath="tools" failonerror="true"/>
+		<property name="tools.uuid" value=""/>
+		<filter token="NEWUUID" value="${tools.uuid}"/>
+		<echo message="{${tools.uuid}}"/>
+	</target>
+
+	<!--************************************************************************-->
+	<!--************************************************************************-->
+	
+</project>

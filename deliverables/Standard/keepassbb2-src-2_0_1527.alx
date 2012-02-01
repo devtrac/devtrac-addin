@@ -1,0 +1,31 @@
+<loader version="1.0">
+	<application id="keepassbb2-src-2_0_1527">
+		<name >
+			
+		</name>
+		<description >
+			
+		</description>
+		<version >
+			1.0.0
+		</version>
+		<vendor >
+			BlackBerry Developer
+		</vendor>
+		<copyright >
+			Copyright (c) 2012 BlackBerry Developer
+		</copyright>
+		<fileset Java="1.54" _blackberryVersion="[4.6.0)">
+			<directory >
+				4.6.0
+			</directory>
+			<files >
+				keepassbb2-src-2_0_1527.cod
+
+			</files>
+
+		</fileset>
+
+	</application>
+
+</loader>

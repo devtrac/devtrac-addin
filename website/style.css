@@ -1,0 +1,76 @@
+body {
+	background: #3475b2;
+}
+
+table.index {
+	width: 200px;
+		}
+
+table {
+	font: 80% proportional;
+	padding: 10px;
+	width: 600px;
+	border-bottom: 3px double #ff7777;
+	border-left: 3px double #ff7777;
+	border-right: 3px double #ff7777;
+	border-top: 3px double #ff7777;
+	border-collapse: collapse;
+}
+
+caption {
+	font : bold 80% proportional;
+	color: black;
+	padding: 10px;
+	text-align: left;
+	background: white;
+	border-top: 3px double #ff7777;
+	border-left: 3px double #ff7777;
+	border-right: 3px double #ff7777;
+	border-bottom: 1px solid black;
+	border-collapse: collapse;
+	font: bold 100% proportional;
+}
+
+td {
+	text-align: left;
+	background: lightblue;
+	padding-left: 0px;
+	padding-right: 5px;
+	padding-top: 2px;
+	padding-bottom: 2px;
+	border-top: 1px solid black;
+	border-bottom: 1px solid black;
+	border-right: 1px gray solid;
+}
+
+th.l2 {
+	background: #ffffff;
+	padding-left: 20px;
+}
+
+th {
+	text-align: left;
+	font: bold 100% normal;
+	color: black;
+	background: #ffffc0;
+	padding-left: 2px;
+	padding-right: 5px;
+	padding-top: 0px;
+	padding-bottom: 0px;
+	border-top: 1px solid black;
+	border-bottom: 1px solid black;
+	border-right: 1px gray solid;
+}
+
+
+ul {
+	margin-top: 10px;
+	margin-bottom: 10px;
+	padding-top: 0px;
+	padding-bottom: 0px;
+}
+
+li {
+	padding-top: 0px;
+	padding-bottom: 5px;
+}
